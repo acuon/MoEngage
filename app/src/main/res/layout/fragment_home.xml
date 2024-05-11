@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.acuon.moengage.ui.home.viewmodel.HomeViewModel" />
+
+        <variable
+            name="uiState"
+            type="com.acuon.moengage.ui.home.ArticlesUiState" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/_background">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_sort"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinner_sort"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/transparent"
+                android:inputType="none"
+                android:text="@string/sort_by"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ts_18sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_articles"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_0dp"
+            android:layout_marginTop="@dimen/_4dp"
+            android:visibility="@{uiState.isSuccess ? View.VISIBLE : View.GONE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_sort"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_layout_news" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{uiState.isLoading? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry"
+            android:visibility="@{uiState.isError ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_24dp"
+            android:gravity="center"
+            android:text="@{uiState.getErrorMessage(context)}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:visibility="@{uiState.isError ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="@+id/btn_retry"
+            app:layout_constraintStart_toStartOf="@+id/btn_retry"
+            app:layout_constraintTop_toBottomOf="@+id/btn_retry"
+            tools:text="Internet Connection Failed"
+            tools:visibility="gone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

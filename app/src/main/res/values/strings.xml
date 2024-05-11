@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MoEngage</string>
+
+    <string name="something_went_wrong">Something Went Wrong</string>
+    <string name="retry">Retry</string>
+
+    <string name="open_settings">Open settings</string>
+    <string name="grant_permissions">Grant permissions</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="notification_permission_needed">Please provide notification permission to get notifications</string>
+    <string name="sort_by">Sort By</string>
+</resources>
